@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center">Upload and share your images</h2>
+<p class="text-center">
+    Drag and drop on form and start uploading your images now.
+    <b>{{ config['MAX_CONTENT_LENGTH_MB'] }} MB</b> limit.<br>
+    Allowed extensions:
+    <b>{% for extension in allowed_extensions %} {{ extension|upper }} {% endfor %}</b>
+</p>
+
+<div class="mx-auto text-center">
+    <form id="uploadForm" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            {{ form.image.label(class='form-label') }}
+            {{ form.image(class='form-control', id='fileInput') }}
+            {% for error in form.image.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.deletion_date.label(class='form-label') }}
+            {{ form.deletion_date(class='form-control') }}
+            {% for error in form.deletion_date.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block add_js %}
+<script src="{{ url_for('static', filename='js/dragndrop.js') }}"></script>
+<script>
+    // large file notification
+    const maxSize = {{ config['MAX_CONTENT_LENGTH'] }};
+
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        const fileInput = document.getElementById('fileInput');
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+
+            if (file.size > maxSize) {
+                alert('File too large! Max size: ' + (maxSize / 1024 / 1024) + 'MB.')
+                event.preventDefault();
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="image-container my-2">
+    <a href="{{ url_for('uploaded_image', short_link=image.short_link, filename=image.filename) }}">
+        <img class="d-block mx-auto" src="{{ url_for('uploaded_image', short_link=image.short_link, filename=image.filename) }}">
+    </a>
+</div>
+<div class="button-panel d-flex justify-content-end p-2">
+    <a href="{{ url_for('uploaded_image', short_link=image.short_link, filename=image.filename ) }}" download>
+        <button type="button" class="btn btn-success">
+            <i class="fa-light fa-arrow-down-to-line"></i>
+            <span>Download</span>
+        </button>
+    </a>
+    <a href="#">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#shareModal">
+            <i class="fa-light fa-share-nodes"></i>
+            <span>Share</span>
+        </button>
+    </a>
+</div>
+<div class="content-info">
+    <h1 class="image-title">{{ clear_filename }}</h1>
+    <p class="image-upload-time">
+        Uploaded
+        <span>{{ moment(image.upload_time).fromNow() }} ({{ moment(image.upload_time).format('DD/MM/YYYY HH:mm') }})</span>
+    </p>
+</div>
+{% include "modals/share.html" %}
+{% endblock %}
+
+{% block add_js %}
+<script src="{{ url_for('static', filename='js/copyFromInput.js') }}"></script>
+{% endblock %}

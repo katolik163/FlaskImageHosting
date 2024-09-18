@@ -1,0 +1,29 @@
+img {
+    max-height: 70vh;
+    max-width: 70vw;
+}
+
+h2 {
+    margin: 5px 0;
+}
+
+.button-panel .btn {
+    margin-left: 10px;
+}
+
+.image-title {
+    font-size: 22px;
+    font-family: sans-serif;
+    overflow-wrap: break-word;
+}
+
+.image-upload-time {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+@media screen and (max-width:415px) {
+    .btn span {
+        display: none;
+    }
+}
