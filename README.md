@@ -20,8 +20,8 @@ cd flaskimagehosting
 Create and activate virtual environment then install dependencies:
 
 ```
-py -m venv .venv
-.venv/Scripts/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
